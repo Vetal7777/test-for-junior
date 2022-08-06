@@ -1,0 +1,92 @@
+.container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+}
+.item{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+}
+.delete{
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    background-color: red;
+    min-width: 30px;
+    min-height: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+    border: 1px solid red;
+    left: -30px;
+}
+.delete:hover{
+    background-color: white;
+}
+.delete:hover .line{
+    background-color: red;
+}
+.delete .line{
+    display: flex;
+    min-width: 16px;
+    height: 2px;
+    background-color: white;
+}
+.content{
+    background-color: white;
+    width: calc(100%);
+    z-index: 1;
+    display: flex;
+    row-gap: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+    align-items: center;
+}
+.testing.container:hover .content{
+    width: calc(100% - 50px);
+}
+.testing.container:hover .delete{
+    left: 0;
+}
+.question,.answer{
+    flex-grow: 1;
+    padding: 20px;
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    width: 100%;
+}
+.answer{
+    background-color: #24a3ff;
+}
+.textarea{
+    min-height: 100px;
+    border-radius: 20px;
+    border: 1px solid #24a3ff;
+    padding: 20px;
+    resize: none;
+    width: 100%;
+    font-size: 14px;
+}
+textarea.textarea::placeholder{
+    color: #24a3ff;
+}
+.number{
+    border-radius: 50%;
+    border: 1px solid black;
+    min-width: 34px;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}

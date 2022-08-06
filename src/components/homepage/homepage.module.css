@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    column-gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    text-decoration: none;
+}
+.item span{
+    opacity: 1;
+    z-index: 0;
+    font-size: 13px;
+    color: #24a3ff;
+    border: 1px solid #24a3ff;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+.item:hover span{
+    color: white;
+    background-color: #24a3ff;
+}

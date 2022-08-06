@@ -1,0 +1,9 @@
+{
+  "questions": [
+    {
+      "question": "Перечислите типы данных в JS ",
+      "answer": "null, boolean, undefined, number, string, object,symbol",
+      "id": "1"
+    }
+  ]
+}

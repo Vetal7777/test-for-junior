@@ -5,14 +5,15 @@ import {useDispatch} from "react-redux";
 import {questionSlice} from "../../store/reduces/questionsSlice";
 import API from "../../utils/API";
 import React, { useState } from 'react';
-import { EventType } from '@testing-library/react';
+import { EditModeI } from '../../models/control';
 
 
 export default function Item({item,index}: { item:QuestionI ,index:number | string}):JSX.Element{
-    const [editMode, setEditMode] = useState<{answer: Boolean; question: Boolean;}>({
+    const [editMode, setEditMode] = useState<EditModeI>({
         question: false,
         answer: false,
     })
+    const [itemState, setItemState] = useState<QuestionI>(item)
     const dispatch = useDispatch();
     const checked = useAppSelector(state => state.checked);
     const testing = useAppSelector(state => state.test.testing);
@@ -39,28 +40,25 @@ export default function Item({item,index}: { item:QuestionI ,index:number | stri
                             <span
                                 onClick={!testing ? () => setEditMode({...editMode,question: true}) : undefined}
                                 className={styles.question}
-                                children={item.question}
+                                children={itemState.question}
                             />
                         )}
                         {
                             editMode.question && (
                                 <textarea
-                                    onChange={(event) => {
+                                    autoFocus={true}  
+                                    onChange={(event) => setItemState({...itemState,question: event.target.value})}
+                                    onBlur={() => {
                                         dispatch(questionSlice.actions.fetch);
-                                        API.put('questions/' + item.id, {...item,question: event.target.value})
+                                        API.put('questions/' + itemState.id, itemState)
                                             .then(response => {
-                                                if(response.status >= 200 && response.status < 300){
-                                                    dispatch(questionSlice.actions.putSuccess(response.data));
-                                                }
-                                                else{
-                                                    dispatch(questionSlice.actions.failed);
-                                                }
+                                                const success = response.status >= 200 && response.status < 300;
+                                                success ? dispatch(questionSlice.actions.putSuccess(response.data)) : dispatch(questionSlice.actions.failed);
                                             })
+                                        setEditMode({...editMode,question: false})
                                     }}
-                                    onBlur={() => setEditMode({...editMode,question: false})}
                                     className={styles.textarea}
-                                    autoFocus
-                                    value={item.question}
+                                    value={itemState.question}
                                 />
                             )
                         }
@@ -69,34 +67,32 @@ export default function Item({item,index}: { item:QuestionI ,index:number | stri
                             (checked || !testing) && 
                             (
                                 <span
-                                onClick={!testing ? () => setEditMode({...editMode,answer: true}) : undefined}
+                                    onClick={!testing ? () => setEditMode({...editMode,answer: true}) : undefined}
                                     className={styles.answer}
-                                    children={item.answer}
+                                    children={itemState.answer}
                                 />
                         )}
                         {
                             editMode.answer && (
                                 <textarea
-                                    onChange={(event) => {
+                                    autoFocus={true}  
+                                    onChange={(event) => setItemState({...itemState,answer: event.target.value})}
+                                    onBlur={() => {
                                         dispatch(questionSlice.actions.fetch);
-                                        API.put('questions/' + item.id, {...item,answer: event.target.value})
+                                        API.put('questions/' + itemState.id, itemState)
                                             .then(response => {
-                                                if(response.status >= 200 && response.status < 300){
-                                                    dispatch(questionSlice.actions.putSuccess(response.data));
-                                                }
-                                                else{
-                                                    dispatch(questionSlice.actions.failed);
-                                                }
+                                                const success = response.status >= 200 && response.status < 300;
+                                                success ? dispatch(questionSlice.actions.putSuccess(response.data)) : dispatch(questionSlice.actions.failed);
                                             })
+                                        setEditMode({...editMode,answer: false})
                                     }}
-                                    onBlur={() => setEditMode({...editMode,answer: false})}
                                     className={styles.textarea}
-                                    autoFocus
-                                    value={item.answer}
+                                    value={itemState.answer}
                                 />
                             )
                         }
                         {testing && <textarea
+                            autoFocus
                             disabled={checked}
                             className={styles.textarea}
                             placeholder={'Answer'}

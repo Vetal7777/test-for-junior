@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {questionSlice} from "../../store/reduces/questionsSlice";
 import API from "../../utils/API";
 import {useAppSelector} from "../../hooks/redux";
-import { set } from 'immer/dist/internal';
 
 export default function CreateNewQuestion():JSX.Element{
     const [state,setState] = useState<NewQuestionI>({

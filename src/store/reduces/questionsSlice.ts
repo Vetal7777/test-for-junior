@@ -37,7 +37,10 @@ export const questionSlice = createSlice({
             state.checked = action.payload;
         },
         testing(state,action:PayloadAction<boolean>){
-            state.testing = action.payload;
+            state.test.testing = action.payload;
+        },
+        changeQuality(state,action:PayloadAction<number>){
+            state.test.quality = action.payload;
         }
     }
 })

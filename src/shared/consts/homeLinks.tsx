@@ -12,7 +12,7 @@ const homeLinks:HomeLinksI[] = [
     {
         title: 'Control questions',
         link: 'control',
-    }
+    },
 ];
 
 export default homeLinks;

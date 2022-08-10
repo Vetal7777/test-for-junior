@@ -1,9 +1,315 @@
 {
+  "quality": [
+    {
+      "id": "1",
+      "test": "61"
+    }
+  ],
   "questions": [
     {
       "question": "Перечислите типы данных в JS ",
       "answer": "null, boolean, undefined, number, string, object,symbol",
       "id": "1"
+    },
+    {
+      "question": "Перечислите HTTP методы у которых есть body ",
+      "answer": "DELETE, PUT, POST ",
+      "id": "3"
+    },
+    {
+      "question": "Перечислите HTTP методы",
+      "answer": "GET, POST, PUT, DELETE",
+      "id": "4"
+    },
+    {
+      "question": "Что вернёт этот код — typeof (function(){})() ?",
+      "answer": "(function(){})() - это самовызывающаяся функция.\n\nДанная функция нечего не возвращает ( то есть undefined ).\n\ntypeof undefined = undefined ;",
+      "id": "4872"
+    },
+    {
+      "question": "Что такое делегирование событий? И из-за чего оно работает ?",
+      "answer": "Делегирование событий - это когда мы назначаем обработчик событий на parent . \n\nРаботает он из-за того что у нас parent всегда знает на каком именно child произошел event.",
+      "id": "8117"
+    },
+    {
+      "question": "Что будет в консоли и почему?\n\nlet obj = {};\n\nfunction func(x) {\nx = 1;\nreturn x;\n}\n\nconsole.log(func(obj));\nconsole.log(obj);",
+      "answer": "console.log(func(obj)) - вернет 1;\n\nПотому что в данном случае, функция возвращает свой параметр x. \nКоторой мы присваиваем в данном контексте исполнение значение - 1. \nLexical environment - просто не доходит до нашего объекта.\n\nconsole.log(obj) - вернет {} ;",
+      "id": "3409"
+    },
+    {
+      "question": "Что такое CRUD?",
+      "answer": "CRUD - это те базовые функции который мы можем выполнять используя методы POST, GET, PUT, DELETE т.е CREATE, READ, UPDATE, DELETE.",
+      "id": "1718"
+    },
+    {
+      "question": "Напишите очередности вывода в консоли:\n\n\nconsole.log(1);\n\nPromise.resolve(2).then((r) => console.log(r));\n\nfunction log(){\nsetTimeout( () => console.log( 3 ),1000 );\nconsole.log(4);\n}\n\nlog();\n\nsetTimeout( () => console.log( 5 ),1000 );\n\nconsole.log( 6 );\n\nPromise.reject( 7 )\n.then( ( r ) => console.log( 's' , r ))\n.catch( ( e ) => console.log( 'e', e ));\n\nsetTimeout(() => console.log( 8 )); ",
+      "answer": "сonsole.log( 1 )\n- не асинхронная функция, не забивает наш стек и сразу выполняется;\n\nPromise.resolve(2).then((r) => console.log(r))\n- уходит в webapi. Promise возвращают микротаски у них приоритет в нашей очереди .\n\nfunction log(){\n- начинается функция ;\n\nsetTimeout( () => console.log( 3 ),1000 );\n- данная операция уходит в webapi ;\n\nconsole.log(4)\n - идет в наш стек и выполняется ;\n}\n\nsetTimeout( () => console.log( 5 ),1000 ) - идет в webapi;\n\nconsole.log( 6 )\n- идет в наш стек и выполняется;\n\nPromise.reject( 7 )\n.then( ( r ) => console.log( 's' , r ))\n.catch( ( e ) => console.log( 'e', e ))\n- Promise возвращают микротаски у них приоритет в нашей очереди \n\nsetTimeout(() => console.log( 8 ))\n- идет в webapi \n\n\nResult: 1,4, 6, 2, 7, 8, 3, 5;",
+      "id": "3447"
+    },
+    {
+      "question": "Напишите функцию add(1)(2) // ->3",
+      "answer": "function add(a){\n    return function(b){\n        return a + b;\n    }\n}",
+      "id": "6846"
+    },
+    {
+      "question": "Реализуйте console.log('2'.add(2)) // -> 4",
+      "answer": "String.prototype.add = function (n){\n    return +this + n;\n}",
+      "id": "9830"
+    },
+    {
+      "question": "Реализуйте console.log( '2'.add(2).minus(3)) // -> 1",
+      "answer": "String.prototype.add = function (n){\n    return +this + n;\n}\nString.prototype.minus = function(n){\n    return +this - n;\n}",
+      "id": "5292"
+    },
+    {
+      "question": "Напишите функцию, которая будет принимать строку из скобок, и определять все ли они закрыты \"()(({{[[}}{{[]]])\" функция возвращает boolean",
+      "answer": "function func(string){\n    const data = {\n        '[': 0,\n        ']': 0,\n        '{': 0,\n        '}': 0,\n        '(': 0,\n        ')': 0,\n    };\n    string.split('').forEach(quote => {\n        data[quote] += 1;\n    });\n    return data['['] === data[']']\n        && data['{'] === data['}']\n        && data['('] === data[')']\n}",
+      "id": "1381"
+    },
+    {
+      "question": "Напишите функцию, принимает массив чисел возвращает массив только с четными числами - [2,1,3,4]-> [2,4]",
+      "answer": "function func(array){\n    return array.filter(number => number%2 === 0)\n}",
+      "id": "8111"
+    },
+    {
+      "question": "Напишите функцию, которая определяет содержат ли переданные ей слова одинаковый набор букв - some('kot', 'tko') -> true some('kot','lob') ->false",
+      "answer": "function some(str1,str2){\n    return str1.length === str2.length\n        && !str1\n            .split('')\n            .reduce((acc,e)=> {\n                acc -= +str2\n                    .split('')\n                    .includes(e);\n                return acc;\n        },str1.length);\n}",
+      "id": "5474"
+    },
+    {
+      "question": "Что будет в консоли ? И почему?\n\nconst a = [1, 2, 3];\n\nconst b = a.forEach( (e) => e +1 );\n\nconsole.log( b );",
+      "answer": "forEach - нечего не возвращает. \nПоэтому будет undefined",
+      "id": "8340"
+    },
+    {
+      "question": "Что будет в консоли ?  И почему?\n\nconst a = [1, 2, 3];\n\nconst b = a.map( (e) => {\ne+1;\n} )\n\nconsole.log(b);",
+      "answer": "При открытии фигурных скобок в методе map мы должны вернуть элемент. У нас в данном случае нечего не возвращает соответствующее количество длине массива раз , т.е 3 раза undefined \n\n[undefined, undefined, undefined]",
+      "id": "5509"
+    },
+    {
+      "question": "Реализуйте данную функцию:\n\nconst a = [1, 2];\nconst b = ['w', 'z'];\nconsole.log(a.checkThisOut()); // ['not 1', 'not 2']\nconsole.log(b.checkThisOut()); // ['yep w', 'yep z']",
+      "answer": "const a = [1, 2];\nconst b = ['w', 'z'];\n\nArray.prototype.checkThisOut = function(){\n    return this.map(elem => {\n        return typeof elem === 'string' ? elem = 'yep ' + elem : elem = 'not ' + elem;\n    })\n}",
+      "id": "2380"
+    },
+    {
+      "question": "Что такое boxing unboxing?",
+      "answer": "Процесс оборачивания примитивов объектами соответствующего типа.",
+      "id": "4837"
+    },
+    {
+      "question": "Отличие var, let, const ",
+      "answer": "var - имеет две зоны видимости( глобальная , функциональная );\nlet, const - имеет только одну зону видимости ( блочная )\nconst - об]является только один раз.\nlet - можно изменить , и об]явить переменную без значения\n",
+      "id": "5201"
+    },
+    {
+      "question": "Что такое hosting?",
+      "answer": "Это процесс описывающий как наш интерпретатор работает с JavaScript, как он читает файл нашего JavaScript.\nУ него есть две стадии ( об]явление , присваивание )",
+      "id": "9144"
+    },
+    {
+      "question": "Варианты объявления функций и чем отличаются",
+      "answer": "Варианты : Expression, Declaration\n\nDeclaration - можно вызывать до объявления\nExpression - нету своего контекста",
+      "id": "1679"
+    },
+    {
+      "question": "Что такое замыкания в JavaScript ?",
+      "answer": "Объект который создается в нашей функции где хранятся все локальные переменные объявленные в этом scope и ссылка на родителя",
+      "id": "8442"
+    },
+    {
+      "question": "Что такое this?",
+      "answer": "this - это ссылка на контекст исполнения той или иной функции",
+      "id": "277"
+    },
+    {
+      "question": "Для чего нам call bind и apply и чем они отличаются?",
+      "answer": "call() - вызывается сразу, принимает список аргументов\nbind() - не вызывается сразу\napply() - вызывается сразу, принимает массив аргументов",
+      "id": "2308"
+    },
+    {
+      "question": "Что можешь сказать о ООП и его реализации в JavaScript?",
+      "answer": "ООП - расшифровывается как объектно ориентированное программирование\n\nПо сути - это подход к написанию кода\n\nУ данного подхода 3 основных принципа: \n( Инкапсуляция, Наследование , Полиморфизм )",
+      "id": "670"
+    },
+    {
+      "question": "Как добавить элемент в начало, в конец массива ?",
+      "answer": "Методы: unshift, push",
+      "id": "516"
+    },
+    {
+      "question": "Что такое Common JS ?",
+      "answer": "Подход работы с зависимостями в JavaScript\nКак с файловыми так и с библиотеками",
+      "id": "8788"
+    },
+    {
+      "question": "Что приходит в event.target?",
+      "answer": "DOM элемент на котором произошло событие",
+      "id": "2430"
+    },
+    {
+      "question": "Что такое поднятие события в DOM ?",
+      "answer": "Это последовательность обратных вызовов при клике на вложенные элементы.\n\n- Спускается к тому элементу на котором произошел event\n- Потом поднимается\n\nКликая на какой-то вложенный элемент мы кликаем по сути на все",
+      "id": "9222"
+    },
+    {
+      "question": "Чем стрелочная функция отличается от обычной ?",
+      "answer": "Присутствие контекста, структура, отсутвие аргументов",
+      "id": "3402"
+    },
+    {
+      "question": "Как происходит общение между сервером и клиентом?",
+      "answer": "В большинстве своем благодаря протоколу HTTP \nПотом протокол может меняться",
+      "id": "260"
+    },
+    {
+      "question": "Что такое HTTP?",
+      "answer": "Протокол общения между сервером и клиентом, описывающий как именно клиент должен общаться с сервером",
+      "id": "3760"
+    },
+    {
+      "question": "Что такое REST ? ",
+      "answer": "Это архитектурный стиль который описывает правила работы с HTTP",
+      "id": "1918"
+    },
+    {
+      "question": "Что такое Promise ?",
+      "answer": "Это объект который содержит все состояния\n\nСостояния : ( pending, fulfilled, rejected )\n\nИспользуется для того чтобы бороться с асинхронщиной ",
+      "id": "1452"
+    },
+    {
+      "question": "Что такое event loop и что \"в него входит\"?",
+      "answer": "Это контроллер который следит за стаканом и очередью.\n\n( Стакан, Очередь, WebAPI, CallBackQueue, RenderQueue )\n\nПроцесс отладки взаимодействия структуры данных в JavaScript",
+      "id": "4163"
+    },
+    {
+      "question": "Напишите функцию которая будет принимать аргумент в виде строки, а возвращать будет кол-во гласных в этой строке",
+      "answer": "function func(string){\n    const data = 'eyuioa';\n    return string\n        .split('')\n        .filter(symbol => data.includes(symbol))\n        .length;\n}",
+      "id": "8583"
+    },
+    {
+      "question": "Дана функция, она принимает в качестве аргументов строки '*', '1', 'b', '1c', реализуйте ее так, что бы она вернула строку '1*b*1c'",
+      "answer": "function func(arg){\n    return [...arguments]\n        .filter(symbol => symbol !== arg)\n        .join(arg);\n}",
+      "id": "8558"
+    },
+    {
+      "question": "Реализовать функцию f: f(2, 3) -> 5, при вызове f(2)(3), тоже вернет 5",
+      "answer": "// Реализовать функцию f: f(2, 3) -> 5,\n// при вызове f(2)(3), тоже вернет 5\n\nfunction func(a,b){\n    return b ? a + b : (b) => a + b;\n}",
+      "id": "9511"
+    },
+    {
+      "question": "Что такое garbage collector ?",
+      "answer": "Сборщик мусора который удаляет неиспользуемые данные",
+      "id": "4671"
+    },
+    {
+      "question": "Что такое Рекурсия?",
+      "answer": "Это функция которая вызывает саму себя",
+      "id": "6495"
+    },
+    {
+      "question": "Что такое Полиморфизм?",
+      "answer": "Способность функции обрабатывать данные разных типов",
+      "id": "7567"
+    },
+    {
+      "question": "Что такое Наследование? ",
+      "answer": "Это механизм базирования объекта или class на другом объекте или class ",
+      "id": "6877"
+    },
+    {
+      "question": "Что такое Контекст ? ",
+      "answer": "Контекстом исполнения чаще всего является тот объект от которого была вызвана функция\n\nИногда контекст можно подменять ( например с помощью addEventListener )\n\nОн всегда отличается для разных функций",
+      "id": "6878"
+    },
+    {
+      "question": "Что такое Инкапсуляция ?",
+      "answer": "Одно из ключевых понятий ООП\n\nПредставляет сокрытие состояния объекта от прямого доступа извне.",
+      "id": "3391"
+    },
+    {
+      "question": "Что вернет typeof null ? А null instanceof Object ? Почему?",
+      "answer": "typeof null - вернет object\n\nЭто было определено с рождения JavaScript\n\nnull instanceof Object - вернет false\n\nПотому что null не является обьектом\n",
+      "id": "9090"
+    },
+    {
+      "question": "Какие способы объявления переменных вы знаете ? ",
+      "answer": "const n = 1;\n\nvar n = 1;\n\nlet n;\n\nlet n = 1;\n\nn = 1;",
+      "id": "3259"
+    },
+    {
+      "question": "Как хранятся разные типы данных в переменных?",
+      "answer": "Number, String, Boolean, Null, Undefined\n\nЭти типы значений хранятся в области Stack, и значение (значение) переменной передается при вызове функции.\n\nОбъект, Массив, Функция\n\nЭти типы объектов хранятся в области Heap, адрес объекта сохраняется в области стека, а адрес (адрес) объекта передается при вызове функции.",
+      "id": "9570"
+    },
+    {
+      "question": "Что выведет код ниже ?\n\nconst b = { a: 1 };\nconst c = b;\nc.b =2 ;\nconsole.log(b);\nconsole.log(c);",
+      "answer": "Выведет два раза : { a: 1, b: 2 }",
+      "id": "9252"
+    },
+    {
+      "question": "Какие есть логические операторы?",
+      "answer": "Логические операторы: \n- || или\n- && и\n- ! не",
+      "id": "8528"
+    },
+    {
+      "question": "Как работают логические операторы?",
+      "answer": "- || при первом же true возвращает true, иначе вернет false\n- && возвращает true при всех значениях true, при первом же false вернет false\n- ! меняет true на false",
+      "id": "8472"
+    },
+    {
+      "question": "Как выполнять разный код в зависимости от результата логического выражения?",
+      "answer": "if ,else if, else или тернарные операторы, или switch",
+      "id": "9955"
+    },
+    {
+      "question": "Когда лучше использовать if ,а когда switch ? ",
+      "answer": "Switch лучше использовать когда вариантов больше двух ( при условии строгого равенства в условии )",
+      "id": "50061"
+    },
+    {
+      "question": "Что такое тернарный оператор ? Для чего он используется ?",
+      "answer": "Тернарный оператор это сокращенная запись else if в одну строку .\nИспользуется для сокращения кода",
+      "id": "73005"
+    },
+    {
+      "question": "Какие виды циклов есть в JavaScript?",
+      "answer": "while, for, do...while",
+      "id": "92467"
+    },
+    {
+      "question": "Какие есть вариации цикла for? И чем они отличаются?",
+      "answer": "for - классический\nfor of - по сути это forEach для массива\nfor in - выполняет операцию для каждой пары в object",
+      "id": "39845"
+    },
+    {
+      "question": "Что выведет код ниже? А в случае если заменить 'const' на 'var'?\n\nf1();\nconst f1 = function(){\n    console.log('it works');\n}",
+      "answer": "Оба раза ошибка \n\nТак как это Function Expression ",
+      "id": "409"
+    },
+    {
+      "question": "Что выведет код ниже ?\n\nf2();\nfunction f2 (){\n    console.log('it works');\n}",
+      "answer": "Выведет: ' it works'\n\nТак как это Function Declaration ",
+      "id": "94317"
+    },
+    {
+      "question": "Как подписаться на событие ?",
+      "answer": "- Использовать addEventListener\n- Использовать on{событие} на DOM элементе\n- Использовать on{событие} на HTML элементе ( не является хорошей практикой )",
+      "id": "70486"
+    },
+    {
+      "question": "Что такое Всплытие и Погружение ? ",
+      "answer": "Всплытие - это когда на элементе происходит событие, обработчики сначала срабатывают на нём, потом на его родителе, затем выше и так далее, вверх по цепочке предков.\n\nПогружение -  событие сначала идёт сверху вниз",
+      "id": "83564"
+    },
+    {
+      "question": "Что такое кастомные события ?",
+      "answer": "CustomEvent тот же Event . По сути, CustomEvent отличается от Event только тем, что в нём во втором аргументе имеется дополнительное поле detail. ",
+      "id": "80432"
+    },
+    {
+      "question": "Какой listener сработает первым?\nПочему? \nКак можно предотвратить срабатывание следующего listener?\nКак предотвратить отправку формы при клике на кнопку?\n\nHTML:\n\n<form class=\"first\">\n            <button class=\"second\">Submit</button>\n</form>\n\nJS:\n\ndocument.querySelector('.first').addEventListener('click',() => console.log(1));\ndocument.querySelector('.second').addEventListener('click',() => console.log(2));",
+      "answer": "Первым listener сработает .second \nРаботает по принципу Всплытие\nметод stopPropagation();\nметод preventDefault();",
+      "id": "62232"
     }
   ]
 }

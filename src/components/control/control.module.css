@@ -13,4 +13,25 @@
     align-items: center;
     row-gap: 20px;
     height: 100%;
+    width: 100%;
+}
+input.quality{
+    max-width: 70px;
+    text-align: center;
+}
+input.quality::-webkit-outer-spin-button,
+input.quality::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.quality{
+    padding: 5px 20px;
+    border-radius: 20px;
+    border: 1px solid #24a3ff;
+    color: #24a3ff;
+    font-size: 12px;
+    cursor: pointer;
+}
+.quality:hover{
+    background-color: #24a3ff;
+    color: white;
 }

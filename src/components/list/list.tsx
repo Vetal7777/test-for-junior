@@ -7,13 +7,14 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function List():JSX.Element{
     const questions = useAppSelector( (state) => state.questions);
-    const testing = useAppSelector(state => state.testing);
+    const testing = useAppSelector(state => state.test.testing);
+    const quality = useAppSelector(state => state.test.quality);
     const isLoading = useAppSelector(state => state.isLoading);
     const validatedQuestions = () => {
         if(testing){
             const testQuestions = [...questions]
                 .sort(() => Math.random() - 0.5)
-                .slice(0,10)
+                .slice(0,quality)
             return testQuestions;
         }
         else{

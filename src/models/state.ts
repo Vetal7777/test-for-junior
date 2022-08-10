@@ -13,7 +13,12 @@ export interface StateI {
     isLoading: boolean;
     error: string;
     checked: boolean;
+    test: TestStateI;
+}
+
+export interface TestStateI {
     testing: boolean;
+    quality: number;
 }
 
 export type RootState = ReturnType<typeof questionsSlice>;

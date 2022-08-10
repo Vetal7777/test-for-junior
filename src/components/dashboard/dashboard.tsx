@@ -11,11 +11,19 @@ export default function Dashboard():JSX.Element{
         dispatch(questionSlice.actions.fetch());
         API.get('questions')
             .then(response => {
-                if(response.status === 200){
+                if(response.status >= 200 && response.status < 300){
                     dispatch(questionSlice.actions.getSuccess(response.data));
                 }else{
                     dispatch(questionSlice.actions.failed);
                 }
+            })
+        API.get('quality')
+            .then(response => {
+                if(response.status >= 200 && response.status < 300){
+                    dispatch(questionSlice.actions.changeQuality(response.data[0].test));
+                }else{
+                    dispatch(questionSlice.actions.failed);
+                } 
             })
     },[])
     return (

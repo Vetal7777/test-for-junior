@@ -5,5 +5,8 @@ export const initialState:StateI = {
     isLoading: false,
     error: '',
     checked: false,
-    testing: false,
+    test: {
+        testing: false,
+        quality: 0,
+    },
 }

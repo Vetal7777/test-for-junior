@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import {questionSlice} from "../../store/reduces/questionsSlice";
 import API from "../../utils/API";
 import {useAppSelector} from "../../hooks/redux";
+import { set } from 'immer/dist/internal';
 
 export default function CreateNewQuestion():JSX.Element{
     const [state,setState] = useState<NewQuestionI>({
@@ -15,15 +16,19 @@ export default function CreateNewQuestion():JSX.Element{
     const dispatch = useDispatch();
     function createNewQuestion(){
         dispatch(questionSlice.actions.fetch);
-        API.post('questions',{...state,id: questions.length + 1 + ''})
+        API.post('questions',{...state,id: Math.round(Math.random() * 100000) + ''})
             .then(response => {
-                if(response.status === 200){
+                if(response.status >= 200 && response.status < 300){
                     dispatch(questionSlice.actions.postSuccess(response.data))
                 }
                 else{
                     dispatch(questionSlice.actions.failed);
                 }
             })
+        setState({
+            question: '',
+            answer: ''
+        })
     }
     return (
         <>
@@ -38,13 +43,13 @@ export default function CreateNewQuestion():JSX.Element{
                             placeholder={'Question'}
                             onChange={event => setState({...state, question: event.target.value})}
                             value={state.question}
-                            className={styles.question}
+                            className={styles.textarea}
                         />
                         <textarea
                             placeholder={'Answer'}
                             onChange={event => setState({...state, answer: event.target.value})}
                             value={state.answer}
-                            className={styles.answer}
+                            className={styles.textarea}
                         />
                         <button
                             disabled={Object.values(state).some(elem => elem.trim() === '')}
